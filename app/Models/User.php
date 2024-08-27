@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -21,6 +22,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'building_id',
+        'apartment_id',
+        'role',
     ];
 
     /**
@@ -42,4 +46,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function building()
+    {
+        return $this->belongsTo(Building::class);
+    }
+
+    public function apartment()
+    {
+        return $this->belongsTo(Apartment::class);
+    }
 }

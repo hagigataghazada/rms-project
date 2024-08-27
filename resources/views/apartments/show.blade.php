@@ -1,5 +1,4 @@
-@extends('layouts.app')
-@section('content')
+
 {{--    <div class="container">--}}
 {{--        <h2>{{ $apartment->name }} Apartmanı</h2>--}}
 {{--        <p>Bina: {{ $apartment->building->name }}</p>--}}

@@ -9,5 +9,17 @@ class Building extends Model
 {
 use HasFactory;
 
-protected $fillable = ['name', 'photo', 'building_number', 'apartment_count', 'apartment_numbers'];
+protected $fillable = ['name', 'building_id', 'apartment_count'];
+
+    public function apartments()
+    {
+        return $this->hasMany(Apartment::class);
+    }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+
 }

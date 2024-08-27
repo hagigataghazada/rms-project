@@ -8,24 +8,51 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthAdminController extends Controller
 {
-    public function showLoginForm(){
-        return view('admin.login');
+    // Admin login formunu göster
+    public function showLoginForm()
+    {
+        return view('front.home');
     }
 
-    public function login(Request $request){
+    // Admin giriş işlemini gerçekleştir
+    public function login(Request $request)
+    {
+        // Giriş bilgilerini doğrula
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string|min:8',
+        ]);
+
         $credentials = $request->only('email', 'password');
-        if(Auth::attempt($credentials)){
-            if(Auth::user()->role === 'admin'){
+
+        // Giriş bilgilerini kontrol et ve kullanıcının admin olup olmadığını doğrula
+        if (Auth::attempt($credentials)) {
+            if (Auth::user()->role === 'admin') {
                 return redirect()->route('admin.panel');
+            } else {
+                Auth::logout();
+                return redirect()->route('admin.login')->withErrors([
+                    'error' => 'Yetkisiz erişim. Bu alan sadece adminlere açıktır.',
+                ]);
             }
         }
-        return redirect('/admin/login')->withErrors([
-            'error' => 'Login unsuccessful'
+
+        // Giriş başarısız olursa tekrar login sayfasına yönlendir
+        return redirect()->route('admin.login')->withErrors([
+            'error' => 'Giriş başarısız. Lütfen bilgilerinizi kontrol edin.',
         ]);
     }
-    public function logout(Request $request) {
+
+    // Admin çıkış işlemi
+    public function logout(Request $request)
+    {
         Auth::logout();
+
+        // Oturumu tamamen sonlandır ve token'ı yenile
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        // Çıkış yaptıktan sonra ana sayfaya yönlendir
         return redirect()->route('home');
     }
-
 }

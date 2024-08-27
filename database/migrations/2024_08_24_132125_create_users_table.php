@@ -16,6 +16,7 @@ class CreateUsersTable extends Migration
             $table->string('phone_number')->nullable();
             $table->unsignedBigInteger('apartment_id')->nullable();
             $table->unsignedBigInteger('building_id')->nullable();
+            $table->string('role')->default('user');
             $table->timestamps();
 
             // Foreign key constraints
@@ -27,5 +28,10 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+        Schema::table('users', function (Blueprint $table) {
+            if (Schema::hasColumn('users', 'apartment_number')) {
+                $table->dropColumn('apartment_number');
+            }
+        });
     }
 }

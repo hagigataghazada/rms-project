@@ -11,7 +11,7 @@
             <span>Admin Name</span>
             <img src="https://via.placeholder.com/50" alt="Profile Image">
             <div class="dropdown-menu">
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
+                <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: inline;">
                     @csrf
                     <button type="submit" class="logout-btn">Çıkış Yap</button>
                 </form>

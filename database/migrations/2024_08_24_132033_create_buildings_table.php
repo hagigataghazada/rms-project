@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,8 +12,7 @@ class CreateBuildingsTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('apartment_count');
-            $table->integer('building_number');
-            $table->text('apartment_numbers');
+            $table->integer('building_id'); // Benzersiz olmamalı
             $table->timestamps();
         });
     }

@@ -6,7 +6,7 @@
             </div>
             <ul class="dropdown-menu">
                 <li><a href="{{ route('buildings.create') }}" onclick="loadSection('add')">Ekle</a></li>
-                <li><a href="{{ route('buildings.list') }}" onclick="loadSection('list')">Liste</a></li>
+                <li><a href="{{ route('buildings.index') }}" onclick="loadSection('list')">Liste</a></li>
             </ul>
         </li>
         <li class="menu-item">
@@ -38,9 +38,6 @@
                 <li><a href="{{ route('residents.create') }}" onclick="loadSection('add')">Ekle</a></li>
                 <li><a href="{{ route('residents.list') }}" onclick="loadSection('list')">Liste</a></li>
             </ul>
-        </li>
-        <li class="menu-item">
-            <a href="{{ route('admin.register') }}"><i class="fas fa-user"></i><span class="link-text">Register</span></a>
         </li>
 {{--        <li class="menu-item">--}}
 {{--            <div class="dropdownDiv">--}}

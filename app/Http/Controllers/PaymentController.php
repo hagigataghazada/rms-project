@@ -23,14 +23,14 @@ class PaymentController extends Controller
         $request->validate([
             'amount' => 'required|numeric',
             'date' => 'required|date',
-            'apartment_number' => 'required',
+            'apartment_id' => 'required',
             'receipt_image' => 'nullable|image|max:2048',
         ]);
 
         $payment = new Payment();
         $payment->amount = $request->amount;
         $payment->date = $request->date;
-        $payment->apartment_number = $request->apartment_number;
+        $payment->apartment_id = $request->apartment_id;
 
         if ($request->hasFile('receipt_image')) {
             $path = $request->file('receipt_image')->store('receipts', 'public');

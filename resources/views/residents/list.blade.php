@@ -14,22 +14,23 @@
             </tr>
             </thead>
             <tbody>
-{{--            @foreach($residents as $resident)--}}
-{{--                <tr>--}}
-{{--                    <td>{{ $resident->name }} {{ $resident->surname }}</td>--}}
-{{--                    <td>{{ $resident->apartment->name }}</td>--}}
-{{--                    <td>{{ $resident->email }}</td>--}}
-{{--                    <td>{{ $resident->phone }}</td>--}}
-{{--                    <td>--}}
-{{--                        <a href="{{ route('residents.edit', $resident->id) }}" class="btn btn-warning">Düzenle</a>--}}
-{{--                        <form action="{{ route('residents.destroy', $resident->id) }}" method="POST" style="display:inline;">--}}
-{{--                            @csrf--}}
-{{--                            @method('DELETE')--}}
-{{--                            <button type="submit" class="btn btn-danger">Sil</button>--}}
-{{--                        </form>--}}
-{{--                    </td>--}}
-{{--                </tr>--}}
-{{--            @endforeach--}}
+            @foreach($residents as $resident)
+                <tr>
+                    <td>{{ $resident->name }}</td>
+                    <td>{{ optional($resident->building)->name }}</td> <!-- Building tablosundaki name alanı -->
+                    <td>{{ optional($resident->apartment)->apartment_id }}</td> <!-- Apartment tablosundaki apartment_id alanı -->
+                    <td>{{ $resident->email }}</td>
+                    <td>{{ $resident->phone_number }}</td>
+                    <td>
+                        <a href="{{ route('residents.edit', $resident->id) }}" class="btn btn-warning">Düzenle</a>
+                        <form action="{{ route('residents.destroy', $resident->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Sil</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
             </tbody>
         </table>
     </div>

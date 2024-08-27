@@ -1,9 +1,11 @@
+<!-- resources/views/buildings/edit.blade.php -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bina Ekle</title>
+    <title>Bina Düzenle</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,7 +21,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            width: 400px;
+            width: 500px;
             background-color: white;
             padding: 20px;
             border-radius: 8px;
@@ -60,25 +62,27 @@
 <body>
 
 <div class="container">
-    <h1>Bina Ekle</h1>
-    <form action="{{ route('buildings.store') }}" method="POST">
+    <h1>Bina Düzenle</h1>
+    <form action="{{ route('buildings.update', $building->id) }}" method="POST">
         @csrf
+        @method('PUT')
+
         <div>
             <label for="name">Bina Adı:</label>
-            <input type="text" id="name" name="name" required>
+            <input type="text" id="name" name="name" value="{{ $building->name }}" required>
+        </div>
+
+        <div>
+            <label for="building_id">Bina ID:</label>
+            <input type="number" id="building_id" name="building_id" value="{{ $building->building_id }}" required>
         </div>
 
         <div>
             <label for="apartment_count">Apartman Sayısı:</label>
-            <input type="number" id="apartment_count" name="apartment_count" required>
+            <input type="number" id="apartment_count" name="apartment_count" value="{{ $building->apartment_count }}" required>
         </div>
 
-        <div>
-            <label for="building_id">Bina Numarası:</label>
-            <input type="number" id="building_id" name="building_id" required>
-        </div>
-
-        <button type="submit">Bina Ekle</button>
+        <button type="submit">Güncelle</button>
     </form>
 </div>
 

@@ -16,7 +16,8 @@ class AuthAdmin
     public function handle(Request $request, Closure $next)
     {
         if(!Auth::check() || Auth::user()->role !== 'admin') {
-            return redirect()->route('admin.login.submit');
+            // Eğer kullanıcı admin değilse home sayfasına yönlendir
+            return redirect()->route('home');
         }
         return $next($request);
     }

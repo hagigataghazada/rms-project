@@ -9,17 +9,21 @@ class Apartment extends Model
 {
     use HasFactory;
 
-    // Apartment ile Building arasındaki ilişki
+    // Apartment modelinde
+    protected $table = 'apartments';
+    protected $fillable = ['apartment_id', 'room_count', 'floor_number', 'status', 'price', 'building_id'];
+
     public function building()
     {
         return $this->belongsTo(Building::class);
     }
 
-    // Apartment ile Resident arasındaki ilişki
-    public function residents()
+    public function user()
     {
-        return $this->hasMany(Resident::class);
+        return $this->hasOne(User::class);
     }
+
+
 
     // Apartment ile Payment arasındaki ilişki
     public function payments()
