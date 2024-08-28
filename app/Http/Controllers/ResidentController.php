@@ -15,9 +15,7 @@ class ResidentController extends Controller
 
     public function index()
     {
-        // Sadece role değeri 'resident' olan kullanıcıları getirin
-        $residents = User::where('role', 'resident')->with('building', 'apartment')->get();
-
+        $residents = User::where('role', 'resident')->get(); // Sadece 'resident' rolündeki kullanıcıları çekiyoruz
         return view('residents.list', compact('residents'));
     }
 
@@ -55,10 +53,10 @@ class ResidentController extends Controller
         $resident = User::findOrFail($id);
 
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $resident->id,
-            'apartment_id' => 'required',
-            'password' => 'nullable|min:8|confirmed',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'apartment_id' => 'required|integer|unique:users,apartment_id,' . $resident->id,
+            'password' => 'nullable|confirmed|min:8',
         ]);
 
         $resident->name = $request->name;

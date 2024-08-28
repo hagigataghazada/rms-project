@@ -1,22 +1,30 @@
+@extends('admin.layouts.app')
+
+@section('title', 'Servis Kayıt Formu')
 
 @section('content')
-    <div class="container">
-        <h2>Servis Ekle</h2>
-        <form action="{{ route('services.store') }}" method="POST">
-            @csrf
-            <div class="form-group">
-                <label for="service_type">Servis Türü</label>
-                <input type="text" name="service_type" class="form-control" placeholder="Servis Türü" required>
-            </div>
-            <div class="form-group">
-                <label for="contact_name">İsim</label>
-                <input type="text" name="contact_name" class="form-control" placeholder="İsim" required>
-            </div>
-            <div class="form-group">
-                <label for="contact_phone">İletişim Numarası</label>
-                <input type="text" name="contact_phone" class="form-control" placeholder="İletişim Numarası" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Servis Ekle</button>
-        </form>
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+        <div style="width: 500px; background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+            <h1 style="text-align: center; margin-bottom: 20px;">Servis Kayıt Formu</h1>
+            <form action="{{ route('services.store') }}" method="POST">
+                @csrf
+                <div style="margin-bottom: 15px;">
+                    <label for="name" style="display: block; margin-bottom: 8px; font-weight: bold;">Servis Adı:</label>
+                    <input type="text" id="name" name="name" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label for="type" style="display: block; margin-bottom: 8px; font-weight: bold;">Servis Türü:</label>
+                    <input type="text" id="type" name="type" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label for="contact_number" style="display: block; margin-bottom: 8px; font-weight: bold;">İletişim Numarası:</label>
+                    <input type="text" id="contact_number" name="contact_number" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+
+                <button type="submit" style="width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">Kaydet</button>
+            </form>
+        </div>
     </div>
 @endsection

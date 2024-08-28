@@ -42,7 +42,7 @@ Route::namespace('App\\Http\\Controllers\\Users')->group(function () {
     Route::post('/login', 'LoginController@login')->name('user.login.post');
     Route::post('/logout', 'LoginController@logout')->name('user.logout');
 });
-// Residents routes
+
 // Residents routes
 Route::middleware(['auth.admin'])->group(function () {
     Route::get('/residents/create', [ResidentController::class, 'create'])->name('residents.create');
@@ -52,7 +52,12 @@ Route::middleware(['auth.admin'])->group(function () {
     Route::put('/residents/{id}', [ResidentController::class, 'update'])->name('residents.update');
     Route::delete('/residents/{id}', [ResidentController::class, 'destroy'])->name('residents.destroy');
 });
+
 // Home Route
+
+Route::get('/aa',function (){
+    return view('residents.list');
+});
 Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
 
 // Building Routes
@@ -68,16 +73,26 @@ Route::post('/apartments/store', [ApartmentController::class, 'store'])->name('a
 Route::resource('apartments', ApartmentController::class);
 
 // Services routes
+// Sadece show hariç tüm CRUD rotalarını tanımlar
+Route::resource('services', ServiceController::class)->except(['show']);
+
+// Eğer sadece 'create', 'list', 'store', 'edit' rotalarını bireysel tanımlamak istiyorsanız:
 Route::get('/services/create', [ServiceController::class, 'create'])->name('services.create');
 Route::get('/services/list', [ServiceController::class, 'index'])->name('services.list');
 Route::post('/services/store', [ServiceController::class, 'store'])->name('services.store');
+Route::get('/services/{id}/edit', [ServiceController::class, 'edit'])->name('services.edit');
+Route::put('/services/{id}', [ServiceController::class, 'update'])->name('services.update');
+Route::delete('/services/{id}', [ServiceController::class, 'destroy'])->name('services.destroy');
 
 // Payment Routes
 Route::resource('payments', PaymentController::class)->only(['create', 'index', 'store']);
+Route::resource('payments', PaymentController::class);
 // Payments routes
 Route::get('/payments/create', [PaymentController::class, 'create'])->name('payments.create');
-Route::get('/payments/list', [PaymentController::class, 'index'])->name('payments.list');
+Route::get('/payments', [PaymentController::class, 'index'])->name('payments.list');
 Route::post('/payments/store', [PaymentController::class, 'store'])->name('payments.store');
+// Payment Routes
+Route::resource('payments', PaymentController::class)->except(['show']);
 
 // Admin Routes
 Route::middleware(['auth'])->prefix('admin')->group(function () {

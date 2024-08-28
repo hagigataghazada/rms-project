@@ -4,21 +4,21 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBuildingsTable extends Migration
+class CreateServicesTable extends Migration
 {
     public function up()
     {
-        Schema::create('buildings', function (Blueprint $table) {
+        Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('apartment_count');
-            $table->integer('building_id')->unique(); // Benzersiz yapıldı
+            $table->string('type');
+            $table->string('contact_number');
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('buildings');
+        Schema::dropIfExists('services');
     }
 }

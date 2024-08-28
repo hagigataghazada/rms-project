@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
+    public function index()
+    {
+        $services = Service::all();
+        return view('services.list', compact('services'));
+    }
+
     public function create()
     {
         return view('services.create');
@@ -15,21 +21,46 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
+            'name' => 'required',
+            'type' => 'required',
+            'contact_number' => 'required',
         ]);
 
-        Service::create([
-            'name' => $request->name,
-            'description' => $request->description,
-        ]);
+        // Servis oluşturma işlemi
+        Service::create($request->all());
 
-        return redirect()->route('services.list')->with('success', 'Service created successfully.');
+        return redirect()->route('services.list')->with('success', 'Servis başarıyla eklendi.');
     }
-
-    public function index()
+    public function edit($id)
     {
-        $services = Service::all();
-        return view('services.list', compact('services'));
+        $service = Service::findOrFail($id);
+        return view('services.edit', compact('service'));
     }
+    public function destroy($id)
+    {
+        $service = Service::findOrFail($id);
+        $service->delete();
+
+        return redirect()->route('services.index')->with('success', 'Servis başarıyla silindi.');
+    }
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required',
+            'type' => 'required',
+            'contact_number' => 'required',
+        ]);
+
+        $service = Service::findOrFail($id);
+        $service->update($request->all());
+
+        return redirect()->route('services.index')->with('success', 'Servis başarıyla güncellendi.');
+    }
+    public function show($id)
+    {
+        $service = Service::findOrFail($id);
+        return view('services.list', compact('service'));
+    }
+
+
 }

@@ -25,8 +25,7 @@
 
         <div class="form-group">
             <label for="apartment_number">Apartman Numarası:</label>
-            <input type="text" id="apartment_number" name="apartment_number" class="form-control" value="{{ $resident->apartment_number }}" required>
-        </div>
+            <input type="text" id="apartment_id" name="apartment_id" value="{{ old('apartment_id', $resident->apartment_id) }}" required>        </div>
 
         <div class="form-group">
             <label for="password">Şifre (Değiştirmek istemiyorsanız boş bırakın):</label>

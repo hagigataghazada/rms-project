@@ -56,7 +56,7 @@
             </div>
             <ul class="dropdown-menu">
                 <li><a href="{{ route('payments.create') }}" onclick="loadSection('add')">Ekle</a></li>
-                <li><a href="{{ route('payments.list') }}" onclick="loadSection('list')">Liste</a></li>
+                <li><a href="{{ route('payments.index') }}" onclick="loadSection('list')">Liste</a></li>
             </ul>
         </li>
     </ul>

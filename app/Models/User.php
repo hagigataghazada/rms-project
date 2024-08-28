@@ -47,13 +47,16 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function building()
-    {
-        return $this->belongsTo(Building::class);
-    }
+    // User.php
 
     public function apartment()
     {
-        return $this->belongsTo(Apartment::class);
+        return $this->belongsTo(Apartment::class, 'apartment_id');
     }
+
+    public function building()
+    {
+        return $this->belongsTo(Building::class, 'building_id');
+    }
+
 }

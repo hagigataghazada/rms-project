@@ -18,7 +18,7 @@ protected $fillable = ['name', 'building_id', 'apartment_count'];
 
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'building_id');
     }
 
 

@@ -9,6 +9,11 @@ class Apartment extends Model
 {
     use HasFactory;
 
+    public function users()
+    {
+        return $this->hasMany(User::class, 'apartment_id');
+    }
+
     // Apartment modelinde
     protected $table = 'apartments';
     protected $fillable = ['apartment_id', 'room_count', 'floor_number', 'status', 'price', 'building_id'];
