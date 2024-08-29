@@ -20,3 +20,4 @@ $(document).ready(function() {
         }, 500); // Gecikmeyi burada ayarlayın (300 ms)
     });
 });
+

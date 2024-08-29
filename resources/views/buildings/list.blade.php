@@ -3,31 +3,31 @@
 @section('title', 'Bina Listesi')
 
 @section('content')
-    <div class="" style="width: 100%;">
-        <div style="width: 80% !important; margin-left:auto !important; background-color: #f4f4f4; padding: 20px; border-radius: 10px;" class="container">
-            <h2 style="text-align: center; margin-bottom: 20px; color: #333;">Bina Listesi</h2>
-            <a href="{{ route('buildings.create') }}" class="btn btn-primary mb-3" style="background-color: #007bff; border-color: #007bff; display: inline-block; padding: 10px 20px; color: white; border-radius: 5px; text-decoration: none;">Yeni Bina Ekle</a>
-            <table class="table table-bordered" style="width: 100%; border-collapse: collapse; background-color: #fff; margin-top: 20px;">
-                <thead>
+    <div class="container d-flex justify-content-end align-items-center" style="min-height: 80vh;">
+        <div class="card shadow-lg w-100" style="max-width: 80%; background-color: #f4f4f4; padding: 20px; border-radius: 10px;">
+            <h2 class="text-center mb-4" style="color: #333;">Bina Listesi</h2>
+            <a href="{{ route('buildings.create') }}" class="btn btn-primary mb-3" style="background-color: #007bff; border-color: #007bff; color: white; border-radius: 5px; text-decoration: none;">Yeni Bina Ekle</a>
+            <table class="table table-bordered bg-white">
+                <thead class="thead-light">
                 <tr>
-                    <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Bina Adı</th>
-                    <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Apartman Sayısı</th>
-                    <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Building ID</th>
-                    <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">İşlemler</th>
+                    <th class="text-center" style="padding: 12px; border-bottom: 2px solid #ddd;">Bina Adı</th>
+                    <th class="text-center" style="padding: 12px; border-bottom: 2px solid #ddd;">Apartman Sayısı</th>
+                    <th class="text-center" style="padding: 12px; border-bottom: 2px solid #ddd;">Building ID</th>
+                    <th class="text-center" style="padding: 12px; border-bottom: 2px solid #ddd;">İşlemler</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($buildings as $building)
                     <tr>
-                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">{{ $building->name }}</td>
-                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">{{ $building->apartment_count }}</td>
-                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">{{ $building->building_id }}</td>
-                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">
-                            <a href="{{ route('buildings.edit', $building->id) }}" class="btn btn-warning" style="background-color: #ffc107; border-color: #ffc107; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; margin-right: 10px;">Düzenle</a>
+                        <td class="text-center" style="padding: 12px; border-bottom: 1px solid #ddd;">{{ $building->name }}</td>
+                        <td class="text-center" style="padding: 12px; border-bottom: 1px solid #ddd;">{{ $building->apartment_count }}</td>
+                        <td class="text-center" style="padding: 12px; border-bottom: 1px solid #ddd;">{{ $building->building_id }}</td>
+                        <td class="text-center" style="padding: 12px; border-bottom: 1px solid #ddd;">
+                            <a href="{{ route('buildings.edit', $building->id) }}" class="btn btn-warning" style="color: white; border-radius: 5px; margin-right: 5px;">Düzenle</a>
                             <form action="{{ route('buildings.destroy', $building->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger" style="background-color: #dc3545; border-color: #dc3545; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer;">Sil</button>
+                                <button type="submit" class="btn btn-danger" style="border-radius: 5px; cursor: pointer;">Sil</button>
                             </form>
                         </td>
                     </tr>

@@ -58,4 +58,33 @@ class AdminController extends Controller
 
         return redirect()->route('admin.panel')->with('success', 'Admin başarıyla kayıt edildi');
     }
+    public function editProfile()
+    {
+        $admin = auth()->user(); // Giriş yapmış admini getir
+        return view('admin.edit', compact('admin'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $admin = auth()->user();
+
+        // Validation
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $admin->id,
+            'password' => 'nullable|string|min:8|confirmed',
+        ]);
+
+        // Update admin
+        $admin->name = $request->input('name');
+        $admin->email = $request->input('email');
+
+        if ($request->filled('password')) {
+            $admin->password = bcrypt($request->input('password'));
+        }
+
+        $admin->save();
+
+        return redirect()->route('admin.edit')->with('success', 'Profil başarıyla güncellendi.');
+    }
 }

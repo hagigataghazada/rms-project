@@ -3,28 +3,28 @@
 @section('title', 'Servis Düzenle')
 
 @section('content')
-    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-        <div style="width: 500px; background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
-            <h1 style="text-align: center; margin-bottom: 20px;">Servis Düzenle</h1>
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+        <div class="container" style="max-width: 600px; background-color: #f4f4f4; padding: 20px; border-radius: 10px;">
+            <h2 class="text-center mb-4" style="color: #333;">Servis Düzenle</h2>
             <form action="{{ route('services.update', $service->id) }}" method="POST">
                 @csrf
                 @method('PUT')
-                <div style="margin-bottom: 15px;">
-                    <label for="name" style="display: block; margin-bottom: 8px; font-weight: bold;">Servis Adı:</label>
-                    <input type="text" id="name" name="name" value="{{ $service->name }}" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                <div class="form-group mb-3">
+                    <label for="name" class="font-weight-bold">Servis Adı:</label>
+                    <input type="text" id="name" name="name" value="{{ $service->name }}" required class="form-control" style="border-radius: 5px;">
                 </div>
 
-                <div style="margin-bottom: 15px;">
-                    <label for="type" style="display: block; margin-bottom: 8px; font-weight: bold;">Servis Türü:</label>
-                    <input type="text" id="type" name="type" value="{{ $service->type }}" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                <div class="form-group mb-3">
+                    <label for="type" class="font-weight-bold">Servis Türü:</label>
+                    <input type="text" id="type" name="type" value="{{ $service->type }}" required class="form-control" style="border-radius: 5px;">
                 </div>
 
-                <div style="margin-bottom: 15px;">
-                    <label for="contact_number" style="display: block; margin-bottom: 8px; font-weight: bold;">İletişim Numarası:</label>
-                    <input type="text" id="contact_number" name="contact_number" value="{{ $service->contact_number }}" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                <div class="form-group mb-3">
+                    <label for="contact_number" class="font-weight-bold">İletişim Numarası:</label>
+                    <input type="text" id="contact_number" name="contact_number" value="{{ $service->contact_number }}" required class="form-control" style="border-radius: 5px;">
                 </div>
 
-                <button type="submit" style="width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">Güncelle</button>
+                <button type="submit" class="btn btn-primary btn-block" style="border-radius: 5px;">Güncelle</button>
             </form>
         </div>
     </div>

@@ -31,16 +31,11 @@ class AuthAdminController extends Controller
                 return redirect()->route('admin.panel');
             } else {
                 Auth::logout();
-                return redirect()->route('admin.login')->withErrors([
-                    'error' => 'Yetkisiz erişim. Bu alan sadece adminlere açıktır.',
-                ]);
+                return redirect()->route('home');
             }
         }
 
-        // Giriş başarısız olursa tekrar login sayfasına yönlendir
-        return redirect()->route('admin.login')->withErrors([
-            'error' => 'Giriş başarısız. Lütfen bilgilerinizi kontrol edin.',
-        ]);
+
     }
 
     // Admin çıkış işlemi

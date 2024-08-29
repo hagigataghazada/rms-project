@@ -44,7 +44,7 @@ class LoginController extends Controller
     protected function redirectTo()
     {
         if (auth()->user()->role == 'resident') {
-            return route('user.dashboard');
+            return '/user/dashboard';
         } else {
             return route('admin.panel');
         }

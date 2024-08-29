@@ -115,11 +115,43 @@ Route::post('/admin/register', [AdminController::class, 'register'])->name('admi
 //admin logout
 Route::post('/admin/logout', [AuthAdminController::class, 'logout'])->name('admin.logout');
 
+// web.php
+// routes/web.php
+
+use App\Http\Controllers\users\LoginController;
+
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::post('/login', [App\Http\Controllers\users\LoginController::class, 'login'])->name('login.submit');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [UserController::class, 'index'])->name('user.dashboard');
+    Route::get('/user/dashboard', [UserController::class, 'index'])->name('user.dashboard');
+});
+use App\Http\Controllers\NotificationController;
+
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin/notifications', [NotificationController::class, 'index'])->name('admin.notifications.index');
+    Route::get('/admin/notifications/create', [NotificationController::class, 'create'])->name('admin.notifications.create');
+    Route::post('/admin/notifications', [NotificationController::class, 'store'])->name('admin.notifications.store');
 });
 // Admin Dashboard without Login
-//Route::get('/adminloginsiz', function () {
-//    return view('admin.index');
-//})->name('admin.index');
+Route::get('/userloginsiz', function () {
+    return view('user.dashboard');
+})->name('user.dashboard');
+
+Route::middleware(['auth', 'role:user'])->group(function () {
+    Route::get('/user/dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
+    Route::get('/user/profile', [UserProfileController::class, 'show'])->name('user.profile');
+    Route::post('/user/logout', [LoginController::class, 'logout'])->name('user.logout');
+    // routes/web.php
+    Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
+    // Diğer user rotaları
+});
+
+Route::middleware(['auth.admin'])->group(function () {
+    Route::get('/admin/profile', [AdminController::class, 'editProfile'])->name('admin.edit');
+    Route::put('/admin/profile', [AdminController::class, 'updateProfile'])->name('admin.profile.update');
+});

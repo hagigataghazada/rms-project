@@ -15,6 +15,10 @@ class UserController extends Controller
 
         return view('user.dashboard', compact('user', 'payments'));
     }
+    public function profile()
+    {
+        return view('user.profile'); // Profil sayfanızın blade dosyasını burada döndürün
+    }
 
     public function editAccount()
     {

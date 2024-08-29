@@ -56,7 +56,7 @@
     <!-- Login Section -->
     <div class="card login-section" id="login-section">
         <h2>Login</h2>
-        <form action="{{ route('admin.login.submit') }}" method="POST">
+        <form action="{{ route('login.submit') }}" method="POST">
             @csrf
             <label for="email">Email:</label>
             <input type="email" id="email" name="email">

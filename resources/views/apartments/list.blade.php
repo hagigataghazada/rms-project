@@ -1,10 +1,10 @@
 @extends('.admin.layouts.app')
 @section('content')
-    <div class="" style="width: 100%;">
-        <div style="width: 80% !important; margin-left:auto !important; background-color: #f4f4f4; padding: 20px; border-radius: 10px;" class="container">
+    <div class="d-flex justify-content-center" style="width: 100%; height: 90vh;">
+        <div class="d-flex flex-column align-content-center align-items-center" style="width: 90% !important; margin-left:auto !important; background-color: #f4f4f4; padding: 20px; border-radius: 10px;" class="container">
             <h2 style="text-align: center; margin-bottom: 20px; color: #333;">Apartman Listesi</h2>
             <a href="{{ route('apartments.create') }}" class="btn btn-primary mb-3" style="background-color: #007bff; border-color: #007bff; display: inline-block; padding: 10px 20px; color: white; border-radius: 5px; text-decoration: none;">Yeni Apartman Ekle</a>
-            <table class="table table-bordered" style="width: 100%; border-collapse: collapse; background-color: #fff; margin-top: 20px;">
+            <table class="table table-bordered" style="width: 80%; border-collapse: collapse; background-color: #fff; margin-top: 20px;">
                 <thead>
                 <tr>
                     <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Apartman Numarası</th>

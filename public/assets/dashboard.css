@@ -16,7 +16,24 @@
 .sidebar.collapsed {
     width: 80px;
 }
+/* Menü kapalıyken içerik tam genişlikte olmalı */
+.sidebar.collapsed + .content {
+    margin-left: 60px; /* Menü kapalıyken, menü genişliğine uygun olarak ayarlanmalı */
+    width: calc(100% - 60px); /* Kalan genişlik */
+}
 
+/* Menü açıkken içerik ayarı */
+.sidebar.open + .content {
+    margin-left: 250px; /* Menü genişliği kadar boşluk bırak */
+    width: calc(100% - 250px); /* Kalan genişlik */
+}
+
+/* Geçiş efektleri için */
+.sidebar,
+.content {
+    transition: all 0.3s ease;
+
+}
 /* Sidebar Header */
 .sidebar-header {
     display: flex;
@@ -89,7 +106,6 @@
     display: none;
 }
 
-/* Dropdown Menu */
 /* Dropdown Menu */
 .menu-item .dropdown-menu {
     display: none; /* Varsayılan olarak gizli */

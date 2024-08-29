@@ -1,62 +1,70 @@
 <div id="sidebar" class="sidebar">
-    <ul class="menu-links">
+    <ul class="menu-links list-unstyled">
+        <!-- Buildings -->
         <li class="menu-item">
-            <div class="dropdownDiv">
-                <i class="fas fa-building"></i><span class="link-text">Buildings</span>
+            <div class="dropdownDiv d-flex align-items-center">
+                <i class="fas fa-building me-2"></i><span class="link-text">Buildings</span>
             </div>
-            <ul class="dropdown-menu">
-                <li><a href="{{ route('buildings.create') }}" onclick="loadSection('add')">Ekle</a></li>
-                <li><a href="{{ route('buildings.index') }}" onclick="loadSection('list')">Liste</a></li>
+            <ul class="dropdown-menu list-unstyled collapse">
+                <li><a href="{{ route('buildings.create') }}" class="d-block px-3 py-2">Ekle</a></li>
+                <li><a href="{{ route('buildings.index') }}" class="d-block px-3 py-2">Liste</a></li>
             </ul>
         </li>
-        <li class="menu-item">
-            <div class="dropdownDiv">
 
-            <i class="fas fa-home"></i><span class="link-text">Apartments</span>
+        <!-- Apartments -->
+        <li class="menu-item">
+            <div class="dropdownDiv d-flex align-items-center">
+                <i class="fas fa-home me-2"></i><span class="link-text">Apartments</span>
             </div>
-            <ul class="dropdown-menu">
-                <li><a href="{{ route('apartments.create') }}" onclick="loadSection('add')">Ekle</a></li>
-                <li><a href="{{ route('apartments.list') }}" onclick="loadSection('list')">Liste</a></li>
+            <ul class="dropdown-menu list-unstyled collapse">
+                <li><a href="{{ route('apartments.create') }}" class="d-block px-3 py-2">Ekle</a></li>
+                <li><a href="{{ route('apartments.list') }}" class="d-block px-3 py-2">Liste</a></li>
             </ul>
         </li>
-        <li class="menu-item">
-            <div class="dropdownDiv">
 
-            <i class="fas fa-concierge-bell"></i><span class="link-text">Services</span>
+        <!-- Services -->
+        <li class="menu-item">
+            <div class="dropdownDiv d-flex align-items-center">
+                <i class="fas fa-concierge-bell me-2"></i><span class="link-text">Services</span>
             </div>
-            <ul class="dropdown-menu">
-                <li><a href="{{ route('services.create') }}" onclick="loadSection('add')">Ekle</a></li>
-                <li><a href="{{ route('services.list') }}" onclick="loadSection('list')">Liste</a></li>
+            <ul class="dropdown-menu list-unstyled collapse">
+                <li><a href="{{ route('services.create') }}" class="d-block px-3 py-2">Ekle</a></li>
+                <li><a href="{{ route('services.list') }}" class="d-block px-3 py-2">Liste</a></li>
             </ul>
         </li>
-        <li class="menu-item">
-            <div class="dropdownDiv">
 
-            <i class="fas fa-users"></i><span class="link-text">Residents</span>
+        <!-- Residents -->
+        <li class="menu-item">
+            <div class="dropdownDiv d-flex align-items-center">
+                <i class="fas fa-users me-2"></i><span class="link-text">Residents</span>
             </div>
-            <ul class="dropdown-menu">
-                <li><a href="{{ route('residents.create') }}" onclick="loadSection('add')">Ekle</a></li>
-                <li><a href="{{ route('residents.list') }}" onclick="loadSection('list')">Liste</a></li>
+            <ul class="dropdown-menu list-unstyled collapse">
+                <li><a href="{{ route('residents.create') }}" class="d-block px-3 py-2">Ekle</a></li>
+                <li><a href="{{ route('residents.list') }}" class="d-block px-3 py-2">Liste</a></li>
             </ul>
         </li>
-{{--        <li class="menu-item">--}}
-{{--            <div class="dropdownDiv">--}}
 
-{{--            <i class="fas fa-clipboard-list"></i><span class="link-text">Requests</span>--}}
-{{--            </div>--}}
-{{--            <ul class="dropdown-menu">--}}
-{{--                <li><a href="{{ route('buildings.create') }}" onclick="loadSection('add')">Ekle</a></li>--}}
-{{--                <li><a href="{{ route('buildings.list') }}" onclick="loadSection('list')">Liste</a></li>--}}
-{{--            </ul>--}}
-{{--        </li>--}}
+{{--        Notifications--}}
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.notifications.create') }}">
+                <i class="fas fa-bell"></i> Bildirim Gönder
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.notifications.index') }}">
+                <i class="fas fa-list"></i> Bildirimler
+            </a>
+        </li>
+
+        <!-- Payments -->
         <li class="menu-item">
-            <div class="dropdownDiv">
-
-                <i class="fas fa-dollar-sign"></i><span class="link-text">Payments</span>
+            <div class="dropdownDiv d-flex align-items-center">
+                <i class="fas fa-dollar-sign me-2"></i><span class="link-text">Payments</span>
             </div>
-            <ul class="dropdown-menu">
-                <li><a href="{{ route('payments.create') }}" onclick="loadSection('add')">Ekle</a></li>
-                <li><a href="{{ route('payments.index') }}" onclick="loadSection('list')">Liste</a></li>
+            <ul class="dropdown-menu list-unstyled collapse">
+                <li><a href="{{ route('payments.create') }}" class="d-block px-3 py-2">Ekle</a></li>
+                <li><a href="{{ route('payments.index') }}" class="d-block px-3 py-2">Liste</a></li>
             </ul>
         </li>
     </ul>
@@ -68,47 +76,33 @@
 
         menuItems.forEach(item => {
             item.addEventListener('click', function(e) {
-                // Önce tüm menu-item'ların 'active' sınıfını kaldır
                 menuItems.forEach(i => {
                     if (i !== this) {
                         i.classList.remove('active');
-                        i.querySelector('.dropdown-menu').style.display = 'none';
+                        i.querySelector('.dropdown-menu').classList.remove('show');
                     }
                 });
 
-                // Tıklanan menu-item'a 'active' sınıfını ekle
                 this.classList.toggle('active');
                 const dropdownMenu = this.querySelector('.dropdown-menu');
-                if (this.classList.contains('active')) {
-                    dropdownMenu.style.display = 'block';
-                } else {
-                    dropdownMenu.style.display = 'none';
-                }
+                dropdownMenu.classList.toggle('show');
 
-                // Event'in yayılmasını durdur, aksi takdirde 'document' event'i tetiklenir
                 e.stopPropagation();
             });
         });
 
-        // Belirli bir alan dışında tıklamaları algılamak için
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.menu-item')) {
-                // Tıklanan alan menu-item değilse tüm 'active' sınıflarını kaldır
                 menuItems.forEach(i => {
                     i.classList.remove('active');
-                    i.querySelector('.dropdown-menu').style.display = 'none';
+                    i.querySelector('.dropdown-menu').classList.remove('show');
                 });
             }
         });
     });
 
-
     document.getElementById('sidebarToggle').addEventListener('click', function() {
         var sidebar = document.getElementById('sidebar');
         sidebar.classList.toggle('collapsed');
     });
-
-
 </script>
-
-
