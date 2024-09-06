@@ -9,7 +9,7 @@ class Building extends Model
 {
 use HasFactory;
 
-protected $fillable = ['name', 'building_id', 'apartment_count'];
+protected $fillable = ['name', 'building_number', 'apartment_count'];
 
     public function apartments()
     {
@@ -18,7 +18,12 @@ protected $fillable = ['name', 'building_id', 'apartment_count'];
 
     public function users()
     {
-        return $this->hasMany(User::class, 'building_id');
+        return $this->hasMany(User::class, 'building_number');
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'building_number');
     }
 
 

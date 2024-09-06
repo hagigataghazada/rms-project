@@ -1,4 +1,3 @@
-<!-- resources/views/partials/filters.blade.php -->
 <section id="filters">
     <form action="{{ route('announcements.filter') }}" method="GET">
         <div class="filter-group">
@@ -15,7 +14,9 @@
                 <option value="all">All Floors</option>
                 <option value="1">1st Floor</option>
                 <option value="2">2nd Floor</option>
-                <!-- Diğer kat seçenekleri -->
+                <option value="3">3rd Floor</option>
+                <option value="4">4th Floor</option>
+                <option value="5">5th Floor</option>
             </select>
         </div>
 
@@ -25,7 +26,9 @@
                 <option value="all">All Rooms</option>
                 <option value="1">1 Room</option>
                 <option value="2">2 Rooms</option>
-                <!-- Diğer oda seçenekleri -->
+                <option value="3">3 Rooms</option>
+                <option value="4">4 Rooms</option>
+                <option value="5">5 Rooms</option>
             </select>
         </div>
 

@@ -12,7 +12,7 @@ class CreateBuildingsTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('apartment_count');
-            $table->integer('building_id')->unique(); // Benzersiz yapıldı
+            $table->integer('building_number')->unique();
             $table->timestamps();
         });
     }

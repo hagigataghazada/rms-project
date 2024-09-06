@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -22,8 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'building_id',
-        'apartment_id',
+        'building_number',
+        'apartment_number',
         'role',
     ];
 
@@ -36,6 +35,11 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+    // Bildirimlerle ilişki
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'user_id');
+    }
 
     /**
      * The attributes that should be cast.
@@ -51,12 +55,22 @@ class User extends Authenticatable
 
     public function apartment()
     {
-        return $this->belongsTo(Apartment::class, 'apartment_id');
+        return $this->belongsTo(Apartment::class, 'apartment_number');
     }
 
     public function building()
     {
-        return $this->belongsTo(Building::class, 'building_id');
+        return $this->belongsTo(Building::class, 'building_number');
+    }
+    // Kullanıcının rolünü kontrol etmek için yardımcı metodlar
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isResident()
+    {
+        return $this->role === 'resident';
     }
 
 }

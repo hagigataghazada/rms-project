@@ -7,6 +7,15 @@ use Illuminate\Http\Request;
 
 class AnnouncementsController extends Controller
 {
+    public function index()
+    {
+        // Satılık ve kiralık apartmanları veri tabanından alalım
+        $forSaleApartments = Apartment::where('status', 'for sale')->get();
+        $forRentApartments = Apartment::where('status', 'for rent')->get();
+
+        // Bu menzilleri blade'e gönderiyoruz
+        return view('announcements.index', compact('forSaleApartments', 'forRentApartments'));
+    }
     public function filter(Request $request)
     {
         // Burada gelen filtreleme kriterlerini işleyeceksiniz.
@@ -38,5 +47,10 @@ class AnnouncementsController extends Controller
 
         // Filtrelenmiş sonuçları ilgili blade dosyasına gönderiyoruz.
         return view('announcements.announcements', ['announcements' => $announcements]);
+    }
+    public function showForSaleApartments()
+    {
+        $forSaleApartments = Apartment::where('status', 'for sale')->get(); // Satılık apartmanları alın
+        return view('announcements.for-sale', compact('forSaleApartments'));
     }
 }

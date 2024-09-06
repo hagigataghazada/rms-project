@@ -53,7 +53,7 @@ class AdminController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'apartment_id' => 0, // Burada varsayılan bir apartment_id değeri veriyoruz.
+            'apartment_number' => 0, // Burada varsayılan bir apartment_id değeri veriyoruz.
         ]);
 
         return redirect()->route('admin.panel')->with('success', 'Admin başarıyla kayıt edildi');

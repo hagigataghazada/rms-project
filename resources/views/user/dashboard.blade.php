@@ -1,4 +1,3 @@
-<!-- resources/views/user/dashboard.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +9,7 @@
 <div class="d-flex">
     @include('user.partials.sidebar')
 
-    <div class="content p-4" style="margin-left: 260px;">
+    <div class="content">
         @yield('content')
     </div>
 </div>
@@ -20,6 +19,6 @@
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Custom JS -->
-<script src="{{ asset('assets/dashboard.js') }}"></script>
+<script src="{{ asset('user/user.js') }}"></script>
 </body>
 </html>

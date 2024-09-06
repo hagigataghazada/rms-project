@@ -11,12 +11,12 @@
 <nav class="navbar">
     <div class="logo"><img src="{{ asset('images/logo.png') }}" alt="Logo"></div>
     <ul class="nav-links">
-        <li><a href="#">Home</a></li>
+        <li><a href="{{ route('home') }}">Home</a></li>
         <li class="dropdown">
-            <a href="#" class="dropbtn">Contact</a>
+            <a href="" class="dropbtn">Contact</a>
             <div class="dropdown-content">
-                <a href="#">Phone: +123456789</a>
-                <a href="#">Email: info@company.com</a>
+                <a href="">Phone: +123456789</a>
+                <a href="">Email: info@company.com</a>
             </div>
         </li>
         <li><a href="{{ route('announcements.index') }}">Announcements</a></li>

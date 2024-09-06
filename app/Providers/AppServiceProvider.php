@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $residents = User::all();
-        view()->share('residents', $residents);
+//        $residents = User::all();
+//        view()->share('residents', $residents);
     }
 }

@@ -10,23 +10,16 @@ class Payment extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'apartment_id',
+        'apartment_number',
         'type',
         'amount',
         'status',
         'invoice_image',
     ];
 
-    // İlişkileri tanımlama
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
     public function apartment()
     {
-        return $this->belongsTo(Apartment::class);
+        return $this->belongsTo(Apartment::class, 'apartment_number');
     }
 
     // Eğer tablo adını açıkça belirtmeniz gerekiyorsa

@@ -1,17 +1,17 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Resident Düzenle')
+@section('title', 'Edit Resident')
 
 @section('content')
     <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
         <div class="card shadow-lg" style="width: 60%; background-color: #f4f4f4; padding: 20px; border-radius: 10px;">
-            <h2 class="text-center mb-4" style="color: #333;">Resident Düzenle</h2>
+            <h2 class="text-center mb-4" style="color: #333;">Edit Resident</h2>
             <form action="{{ route('residents.update', $resident->id) }}" method="POST">
                 @csrf
                 @method('PUT')
 
                 <div class="form-group mb-3">
-                    <label for="name" class="font-weight-bold">Ad:</label>
+                    <label for="name" class="font-weight-bold">Name:</label>
                     <input type="text" id="name" name="name" value="{{ $resident->name }}" required class="form-control">
                 </div>
 
@@ -21,26 +21,31 @@
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="phone_number" class="font-weight-bold">Telefon Numarası:</label>
+                    <label for="phone_number" class="font-weight-bold">Phone Number:</label>
                     <input type="text" id="phone_number" name="phone_number" value="{{ $resident->phone_number }}" class="form-control">
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="apartment_id" class="font-weight-bold">Apartman Numarası:</label>
-                    <input type="text" id="apartment_id" name="apartment_id" value="{{ $resident->apartment_id }}" required class="form-control">
+                    <label for="building_number" class="font-weight-bold">Building Number:</label>
+                    <input type="text" id="building_number" name="building_number" value="{{ $resident->building_number }}" required class="form-control">
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="password" class="font-weight-bold">Şifre (Değiştirmek istemiyorsanız boş bırakın):</label>
+                    <label for="apartment_number" class="font-weight-bold">Apartment Number:</label>
+                    <input type="text" id="apartment_number" name="apartment_number" value="{{ $resident->apartment_number }}" required class="form-control">
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="password" class="font-weight-bold">Password (If you do not want to change leave empty):</label>
                     <input type="password" id="password" name="password" class="form-control">
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="password_confirmation" class="font-weight-bold">Şifre Onayı:</label>
+                    <label for="password_confirmation" class="font-weight-bold">Confirm Password:</label>
                     <input type="password" id="password_confirmation" name="password_confirmation" class="form-control">
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-block">Güncelle</button>
+                <button type="submit" class="btn btn-primary btn-block">Update</button>
             </form>
         </div>
     </div>

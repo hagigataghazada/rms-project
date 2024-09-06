@@ -28,11 +28,15 @@ class BuildingController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'building_id' => 'required|unique:buildings,building_id',
+            'building_number' => 'required|unique:buildings,building_number',
             'apartment_count' => 'required|integer',
         ]);
 
-        Building::create($request->all());
+        Building::create([
+            'name' => $request->input('name'),
+            'building_number' => $request->input('building_number'),
+            'apartment_count' => $request->input('apartment_count'),
+        ]);
 
         return redirect()->route('buildings.index')->with('success', 'Bina başarıyla oluşturuldu.');
     }
@@ -48,7 +52,7 @@ class BuildingController extends Controller
         $request->validate([
             'name' => 'required',
             'apartment_count' => 'required|integer',
-            'building_id' => 'required|unique:buildings,building_id,'.$id,
+            'building_number' => 'required|unique:buildings,building_number,'.$id,
         ]);
 
         $building = Building::findOrFail($id);

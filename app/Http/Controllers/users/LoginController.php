@@ -20,10 +20,12 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             // Kullanıcı kimlik doğrulandı
             if (Auth::check()) {
+
                 // Kullanıcı rolüne göre yönlendirme
                 if (Auth::user()->role == 'admin') {
                     return redirect()->route('admin.panel');
                 } elseif (Auth::user()->role == 'resident') {
+
                     return redirect()->route('user.dashboard');
                 }
             }
@@ -38,7 +40,7 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-        return redirect()->route('user.login');
+        return redirect()->route('home');
     }
 
     protected function redirectTo()

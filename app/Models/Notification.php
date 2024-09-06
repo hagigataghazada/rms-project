@@ -9,17 +9,29 @@ class Notification extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'resident_id', 'message'];
+    protected $fillable = ['admin_id', 'user_id', 'building_number', 'apartment_number', 'message'];
 
-    // Bildirimi gönderen kullanıcı (admin)
+    // Admin ile ilişki (bildirimi gönderen)
+    public function admin()
+    {
+        return $this->belongsTo(User::class, 'admin_id');
+    }
+
+    // Kullanıcı ile ilişki (bildirimi alan)
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    // Bildirimi alan sakin
-    public function resident()
+    // Apartman ile ilişki
+    public function apartment()
     {
-        return $this->belongsTo(User::class, 'resident_id');
+        return $this->belongsTo(Apartment::class, 'apartment_number', 'apartment_number');
+    }
+
+    // Bina ile ilişki
+    public function building()
+    {
+        return $this->belongsTo(Building::class, 'building_number', 'building_number');
     }
 }

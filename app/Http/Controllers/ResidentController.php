@@ -21,11 +21,13 @@ class ResidentController extends Controller
 
     public function store(Request $request)
     {
+//        dd($request->all());
+
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'building_id' => 'required|exists:buildings,id',
-            'apartment_id' => 'required|exists:apartments,id',
+            'building_number' => 'required|integer|exists:buildings,building_number',
+            'apartment_number' => 'required|integer|exists:apartments,apartment_number',
             'password' => 'required|min:8|confirmed',
             // 'phone_number' alanını zorunlu olarak eklemedik.
         ]);
@@ -33,9 +35,9 @@ class ResidentController extends Controller
         User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'building_id' => $request->building_id,
-            'apartment_id' => $request->apartment_id,
-            'phone_number' => $request->phone_number, // Phone number zorunlu değil, bu yüzden eklenebilir
+            'building_number' => $request->building_number,
+            'apartment_number' => $request->apartment_number,
+            'phone_number' => $request->phone_number,
             'password' => bcrypt($request->password),
             'role' => 'resident',
         ]);
@@ -55,13 +57,17 @@ class ResidentController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'apartment_id' => 'required|integer|unique:users,apartment_id,' . $resident->id,
+            'building_number' => 'required|exists:buildings,building_number',
+            'apartment_number' => 'required|exists:apartments,apartment_number',
+            'phone_number' => 'required|integer|unique:users,phone_number,',
             'password' => 'nullable|confirmed|min:8',
         ]);
 
         $resident->name = $request->name;
         $resident->email = $request->email;
-        $resident->apartment_id = $request->apartment_id;
+        $resident->building_number = $request->building_number;
+        $resident->apartment_number = $request->apartment_number;
+        $resident->phone_number=$request->phone_number;
         if ($request->password) {
             $resident->password = bcrypt($request->password);
         }

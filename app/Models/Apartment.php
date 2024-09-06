@@ -11,16 +11,20 @@ class Apartment extends Model
 
     public function users()
     {
-        return $this->hasMany(User::class, 'apartment_id');
+        return $this->hasMany(User::class, 'apartment_number');
     }
 
     // Apartment modelinde
     protected $table = 'apartments';
-    protected $fillable = ['apartment_id', 'room_count', 'floor_number', 'status', 'price', 'building_id'];
+    protected $fillable = ['apartment_number', 'room_count', 'floor_number', 'status', 'price', 'building_number'];
 
     public function building()
     {
         return $this->belongsTo(Building::class);
+    }
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'apartment_number');
     }
 
     public function user()
@@ -29,8 +33,6 @@ class Apartment extends Model
     }
 
 
-
-    // Apartment ile Payment arasındaki ilişki
     public function payments()
     {
         return $this->hasMany(Payment::class);

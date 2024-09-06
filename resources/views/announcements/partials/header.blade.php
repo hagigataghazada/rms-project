@@ -1,16 +1,21 @@
-<!-- resources/views/partials/header.blade.php -->
-<header>
-    <nav>
-        <!-- Navigasyon Menüsü -->
-        <ul>
-            <li><a href="{{ route('home') }}">Home</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropbtn">Contact</a>
-                <div class="dropdown-content">
-                    <a href="#">Phone: +123456789</a>
-                    <a href="#">Email: info@company.com</a>
-                </div>
-            </li>
-        </ul>
-    </nav>
-</header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url('/') }}">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('forSale') }}">For Sale</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('forRent') }}">For Rent</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('contact') }}">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

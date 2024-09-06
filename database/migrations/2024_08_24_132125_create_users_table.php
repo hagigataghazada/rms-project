@@ -14,14 +14,14 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('phone_number')->nullable();
-            $table->unsignedBigInteger('apartment_id')->nullable();
-            $table->unsignedBigInteger('building_id')->nullable();
+            $table->integer('apartment_number')->nullable();
+            $table->integer('building_number')->nullable();
             $table->string('role')->default('user');
             $table->timestamps();
 
             // Foreign key constraints
-            $table->foreign('apartment_id')->references('id')->on('apartments')->onDelete('cascade');
-            $table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade');
+            $table->foreign('apartment_number')->references('apartment_number')->on('apartments')->onDelete('cascade');
+            $table->foreign('building_number')->references('building_number')->on('buildings')->onDelete('cascade');
         });
     }
 
