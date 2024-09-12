@@ -9,31 +9,27 @@
     border-right: 1px solid #e5e7eb;
     transition: width 0.3s;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-
 }
 
 .sidebar.collapsed {
     width: 80px;
 }
-/* Menü kapalıyken içerik tam genişlikte olmalı */
+
 .sidebar.collapsed + .content {
-    margin-left: 60px; /* Menü kapalıyken, menü genişliğine uygun olarak ayarlanmalı */
-    width: calc(100% - 60px); /* Kalan genişlik */
+    margin-left: 60px;
+    width: calc(100% - 60px);
 }
 
-/* Menü açıkken içerik ayarı */
 .sidebar.open + .content {
-    margin-left: 250px; /* Menü genişliği kadar boşluk bırak */
-    width: calc(100% - 250px); /* Kalan genişlik */
+    margin-left: 260px;
+    width: calc(100% - 260px);
 }
 
-/* Geçiş efektleri için */
 .sidebar,
 .content {
     transition: all 0.3s ease;
-
 }
+
 /* Sidebar Header */
 .sidebar-header {
     display: flex;
@@ -108,7 +104,7 @@
 
 /* Dropdown Menu */
 .menu-item .dropdown-menu {
-    display: none; /* Varsayılan olarak gizli */
+    display: none;
     position: absolute;
     left: 100%;
     top: 0;
@@ -121,9 +117,8 @@
 }
 
 .menu-item.active .dropdown-menu {
-    display: block; /* Aktif olduğunda göster */
+    display: block;
 }
-
 
 /* Menu Toggle */
 .menu-toggle {
@@ -171,7 +166,7 @@
     align-items: center;
     gap: 10px;
     cursor: pointer;
-    position: relative; /* Dropdown menü için relative position */
+    position: relative;
 }
 
 .navbar-right .profile span {
@@ -363,7 +358,7 @@
 
 /* Modal Form */
 .modal-form {
-    display: none; /* Varsayılan olarak görünmez */
+    display: none;
     position: fixed;
     top: 50%;
     left: 50%;

@@ -3,8 +3,8 @@
 @section('title', 'Bina Listesi')
 
 @section('content')
-    <div class="container d-flex justify-content-end align-items-center" style="min-height: 80vh;">
-        <div class="card shadow-lg w-100" style="max-width: 80%; background-color: #f4f4f4; padding: 20px; border-radius: 10px;">
+    <div class="container d-flex justify-content-center align-items-start" style="min-height: 100vh; margin-top: 40px;">
+        <div class="card shadow-lg w-100" style="max-width: 90%; background-color: #f4f4f4; padding: 20px; border-radius: 10px;">
             <h2 class="text-center mb-4" style="color: #333;">Building List</h2>
             <a href="{{ route('buildings.create') }}" class="btn btn-primary mb-3" style="background-color: #007bff; border-color: #007bff; color: white; border-radius: 5px; text-decoration: none; max-width: 200px;">Add</a>
             <table class="table table-bordered bg-white">

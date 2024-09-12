@@ -1,7 +1,7 @@
 let slideIndex = 0;
 const slides = document.querySelector('.slides');
 const slideCount = slides.children.length;
-const visibleSlides = 5; // Aynı anda görünen slayt sayısı
+const visibleSlides = 5;
 const totalGroups = Math.ceil(slideCount / visibleSlides);
 
 function showSlide(index) {
@@ -24,7 +24,7 @@ function changeSlide(n) {
 
 setInterval(() => {
     changeSlide(1);
-}, 4000); // Her 5 saniyede bir slayt değişir
+}, 4000);
 
 document.querySelector('.navbar a[href="#login-section"]').addEventListener('click', function(e) {
     e.preventDefault();

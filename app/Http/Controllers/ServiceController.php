@@ -26,23 +26,17 @@ class ServiceController extends Controller
             'contact_number' => 'required',
         ]);
 
-        // Servis oluşturma işlemi
         Service::create($request->all());
 
-        return redirect()->route('services.list')->with('success', 'Servis başarıyla eklendi.');
+        return redirect()->route('services.list')->with('success', 'Service added successfully');
     }
+
     public function edit($id)
     {
         $service = Service::findOrFail($id);
         return view('services.edit', compact('service'));
     }
-    public function destroy($id)
-    {
-        $service = Service::findOrFail($id);
-        $service->delete();
 
-        return redirect()->route('services.index')->with('success', 'Servis başarıyla silindi.');
-    }
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -54,13 +48,20 @@ class ServiceController extends Controller
         $service = Service::findOrFail($id);
         $service->update($request->all());
 
-        return redirect()->route('services.index')->with('success', 'Servis başarıyla güncellendi.');
+        return redirect()->route('services.index')->with('success', 'Service updated successfully.');
     }
+
+    public function destroy($id)
+    {
+        $service = Service::findOrFail($id);
+        $service->delete();
+
+        return redirect()->route('services.index')->with('success', 'Service deleted successfully.');
+    }
+
     public function show($id)
     {
         $service = Service::findOrFail($id);
         return view('services.list', compact('service'));
     }
-
-
 }

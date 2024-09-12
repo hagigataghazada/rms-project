@@ -18,22 +18,17 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            // Kullanıcı kimlik doğrulandı
             if (Auth::check()) {
-
-                // Kullanıcı rolüne göre yönlendirme
                 if (Auth::user()->role == 'admin') {
                     return redirect()->route('admin.panel');
                 } elseif (Auth::user()->role == 'resident') {
-
                     return redirect()->route('user.dashboard');
                 }
             }
         }
 
-        // Hatalı giriş durumunda geri döner
         return redirect()->back()->withErrors([
-            'error' => 'Email veya Şifre hatalı'
+            'error' => 'Email və ya Şifrə yalnışdır'
         ])->withInput();
     }
 

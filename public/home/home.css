@@ -146,15 +146,15 @@ a {
 }
 
 .slide {
-    flex: 0 0 20%; /* Her slaytın genişliği %20, bu da aynı anda 5 görsel gösterir */
+    flex: 0 0 20%;
     box-sizing: border-box;
     padding: 10px;
 }
 
 .slide img {
     width: 100%;
-    height: 200px; /* İstediğin yükseklik */
-    object-fit: cover; /* Görüntüyü alanın içine sığacak şekilde kırpar */
+    height: 200px;
+    object-fit: cover;
     display: block;
     border-radius: 10px;
 }

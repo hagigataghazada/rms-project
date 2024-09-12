@@ -15,21 +15,18 @@ class ResidentController extends Controller
 
     public function index()
     {
-        $residents = User::where('role', 'resident')->get(); // Sadece 'resident' rolündeki kullanıcıları çekiyoruz
+        $residents = User::where('role', 'resident')->get();
         return view('residents.list', compact('residents'));
     }
 
     public function store(Request $request)
     {
-//        dd($request->all());
-
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'building_number' => 'required|integer|exists:buildings,building_number',
             'apartment_number' => 'required|integer|exists:apartments,apartment_number',
             'password' => 'required|min:8|confirmed',
-            // 'phone_number' alanını zorunlu olarak eklemedik.
         ]);
 
         User::create([
@@ -42,8 +39,9 @@ class ResidentController extends Controller
             'role' => 'resident',
         ]);
 
-        return redirect()->route('residents.list')->with('success', 'Resident successfully created.');
+        return redirect()->route('residents.list')->with('success', 'Resident created successfully.');
     }
+
     public function edit($id)
     {
         $resident = User::findOrFail($id);
@@ -54,26 +52,34 @@ class ResidentController extends Controller
     {
         $resident = User::findOrFail($id);
 
-        $request->validate([
+        $rules = [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'building_number' => 'required|exists:buildings,building_number',
-            'apartment_number' => 'required|exists:apartments,apartment_number',
-            'phone_number' => 'required|integer|unique:users,phone_number,',
-            'password' => 'nullable|confirmed|min:8',
-        ]);
+            'email' => 'required|email|unique:residents,email,' . $id,
+            'building_number' => 'required|string',
+            'apartment_number' => 'required|string',
+            'password' => 'nullable|confirmed|min:6',
+        ];
+
+        if ($request->phone_number != $resident->phone_number) {
+            $rules['phone_number'] = 'nullable|string|max:20|unique:residents,phone_number';
+        }
 
         $resident->name = $request->name;
         $resident->email = $request->email;
         $resident->building_number = $request->building_number;
         $resident->apartment_number = $request->apartment_number;
-        $resident->phone_number=$request->phone_number;
-        if ($request->password) {
+
+        if ($request->phone_number != $resident->phone_number) {
+            $resident->phone_number = $request->phone_number;
+        }
+
+        if ($request->filled('password')) {
             $resident->password = bcrypt($request->password);
         }
+
         $resident->save();
 
-        return redirect()->route('residents.list')->with('success', 'Resident successfully updated.');
+        return redirect()->route('residents.list')->with('success', 'Resident updated successfully.');
     }
 
     public function destroy($id)
@@ -81,6 +87,6 @@ class ResidentController extends Controller
         $resident = User::findOrFail($id);
         $resident->delete();
 
-        return redirect()->route('residents.list')->with('success', 'Resident successfully deleted.');
+        return redirect()->route('residents.list')->with('success', 'Resident deleted successfully.');
     }
 }

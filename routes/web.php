@@ -11,6 +11,10 @@ use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\AuthAdminController;
 use App\Http\Controllers\AnnouncementsController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\users\LoginController;
+
+
 
 
 
@@ -56,11 +60,7 @@ Route::middleware(['auth.admin'])->group(function () {
     Route::delete('/residents/{id}', [ResidentController::class, 'destroy'])->name('residents.destroy');
 });
 
-// Home Route
 
-//Route::get('/aa',function (){
-//    return view('residents.list');
-//});
 Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
 
 // Building Routes
@@ -76,10 +76,8 @@ Route::post('/apartments/store', [ApartmentController::class, 'store'])->name('a
 Route::resource('apartments', ApartmentController::class);
 
 // Services routes
-// Sadece show hariç tüm CRUD rotalarını tanımlar
 Route::resource('services', ServiceController::class)->except(['show']);
 
-// Eğer sadece 'create', 'list', 'store', 'edit' rotalarını bireysel tanımlamak istiyorsanız:
 Route::get('/services/create', [ServiceController::class, 'create'])->name('services.create');
 Route::get('/services/list', [ServiceController::class, 'index'])->name('services.list');
 Route::post('/services/store', [ServiceController::class, 'store'])->name('services.store');
@@ -96,7 +94,6 @@ Route::get('/payments/{id}/edit', [PaymentController::class, 'edit'])->name('pay
 Route::delete('/payments/{id}', [PaymentController::class, 'destroy'])->name('payments.destroy');
 Route::put('/payments/{id}', [PaymentController::class, 'update'])->name('payments.update');
 
-// Admin Routes
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::resource('buildings', BuildingController::class, ['as' => 'admin']);
     Route::resource('services', ServiceController::class, ['as' => 'admin'])->only(['create', 'index', 'store']);
@@ -107,29 +104,28 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
 // Announcements Route
 Route::get('announcements/announcements', function () {
-    return view('announcements.announcements');
+    return redirect()->route('forSale');
 })->name('announcements.index');
-Route::get('/announcements/filter', [App\Http\Controllers\AnnouncementsController::class, 'filter'])->name('announcements.filter');
 
-Route::get('/announcements/partials/for-sale', [ApartmentController::class, 'showForSaleApartments'])->name('forSale');
-Route::get('/announcements/partials/for-rent', [ApartmentController::class, 'showForRentApartments'])->name('forRent');
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
+// Filtreleme Rotası
+Route::get('/announcements/filters', [App\Http\Controllers\AnnouncementsController::class, 'filter'])->name('announcements.partials.filters');
+
+// Satılık Apartmanlar Rotası
+Route::get('/announcements/partials/for-sale', [AnnouncementsController::class, 'showForSaleApartments'])->name('forSale');
+
+// Kiralık Apartmanlar Rotası
+Route::get('/announcements/partials/for-rent', [AnnouncementsController::class, 'showForRentApartments'])->name('forRent');
+
+
 
 //admin register formu
-
-
 Route::get('/admin/register', [AdminController::class, 'showRegisterForm'])->name('admin.register');
 Route::post('/admin/register', [AdminController::class, 'register'])->name('admin.register.post');
 
 //admin logout
 Route::post('/admin/logout', [AuthAdminController::class, 'logout'])->name('admin.logout');
 
-// web.php
-// routes/web.php
 
-use App\Http\Controllers\users\LoginController;
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
@@ -141,8 +137,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
 
 });
-
-use App\Http\Controllers\NotificationController;
 
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
@@ -161,13 +155,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/user/profile', [UserProfileController::class, 'show'])->name('user.profile');
 
-    // routes/web.php
     Route::get('/user/services', [UserController::class, 'services'])->name('user.services');
     Route::get('/user/profile/edit', [UserProfileController::class, 'edit'])->name('user.profile.edit');
     Route::post('/user/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
     Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
     Route::get('/user/payments', [UserController::class, 'payments'])->name('user.payments');
-    // Diğer user rotaları
 });
 
 Route::post('/user/logout', [LoginController::class, 'logout'])->name('user.logout');

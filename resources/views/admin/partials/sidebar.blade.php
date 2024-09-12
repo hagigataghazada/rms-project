@@ -1,4 +1,5 @@
-<div id="sidebar" class="sidebar" style="padding: 20px;">
+<!-- Sidebar -->
+<div id="sidebar" class="sidebar collapsed" style="padding: 20px;">
     <ul class="menu-links list-unstyled">
         <!-- Buildings -->
         <li class="menu-item">
@@ -69,36 +70,6 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const menuItems = document.querySelectorAll('.menu-item');
-
-        menuItems.forEach(item => {
-            item.addEventListener('click', function(e) {
-                menuItems.forEach(i => {
-                    if (i !== this) {
-                        i.classList.remove('active');
-                        i.querySelector('.dropdown-menu').classList.remove('show');
-                    }
-                });
-
-                this.classList.toggle('active');
-                const dropdownMenu = this.querySelector('.dropdown-menu');
-                dropdownMenu.classList.toggle('show');
-
-                e.stopPropagation();
-            });
-        });
-
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.menu-item')) {
-                menuItems.forEach(i => {
-                    i.classList.remove('active');
-                    i.querySelector('.dropdown-menu').classList.remove('show');
-                });
-            }
-        });
-    });
-
     document.getElementById('sidebarToggle').addEventListener('click', function() {
         var sidebar = document.getElementById('sidebar');
         sidebar.classList.toggle('collapsed');

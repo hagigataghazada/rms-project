@@ -1,7 +1,7 @@
 @extends('user.dashboard')
 
 @section('content')
-    <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="d-flex justify-content-start align-items-start" style="min-height: 100vh;">
         <div class="card shadow-lg w-75">
             <div class="card-header bg-primary text-white text-center">
                 <h2 class="mb-0">Your Payments</h2>
@@ -20,6 +20,7 @@
                                 <th>Due Date</th>
                                 <th>Type</th>
                                 <th>Status</th>
+                                <th>Invoice Image</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -35,6 +36,13 @@
                                             <span class="badge bg-warning p-2 text-dark">Pending</span>
                                         @else
                                             <span class="badge bg-danger p-2">Overdue</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($payment->invoice_image)
+                                            <img src="{{ asset('storage/images/invoices/' . $payment->invoice_image) }}" alt="Invoice Image" style="max-width: 100px;">
+                                        @else
+                                            <span>No Invoice</span>
                                         @endif
                                     </td>
                                 </tr>

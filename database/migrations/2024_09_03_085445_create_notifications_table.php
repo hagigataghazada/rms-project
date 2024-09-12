@@ -10,10 +10,10 @@ class CreateNotificationsTable extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('admin_id'); // Bildirimi gönderen kullanıcı (admin)
-            $table->unsignedBigInteger('user_id')->nullable(); // Bildirimi alan kullanıcı (resident)
-            $table->integer('apartment_number')->nullable(); // Apartman numarasına göre bildirim
-            $table->integer('building_number')->nullable(); // Bina numarasına göre bildirim
+            $table->unsignedBigInteger('admin_id');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->integer('apartment_number')->nullable();
+            $table->integer('building_number')->nullable();
             $table->string('message');
             $table->timestamps();
 

@@ -10,7 +10,7 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->integer('apartment_number'); // Apartman numarası
+            $table->integer('apartment_number');
             $table->enum('type', ['water', 'gas', 'electricity', 'elevator']);
             $table->decimal('amount', 8, 2);
             $table->enum('status', ['pending', 'paid'])->default('pending');

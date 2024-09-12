@@ -1,23 +1,34 @@
-$(document).ready(function() {
-    var hoverTimeout;
+document.addEventListener('DOMContentLoaded', function() {
+    const menuItems = document.querySelectorAll('.menu-item');
 
-    // Sadece .profile sınıfındaki öğeye ve onun içerisindeki dropdown-menu'ye odaklanalım
-    $('.profile').hover(function() {
-        clearTimeout(hoverTimeout); // Önceki timeout'u temizle
-        $(this).find('.dropdown-menu').stop(true, true).slideDown(200); // Menü göster
-    }, function() {
-        hoverTimeout = setTimeout(function() {
-            $('.profile').find('.dropdown-menu').stop(true, true).slideUp(200); // Menü gizle
-        }, 500); // Gecikmeyi burada ayarlayın (300 ms)
+    menuItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            const dropdownMenu = this.querySelector('.dropdown-menu');
+
+            if (e.target.tagName === 'A') {
+                return;
+            }
+
+            menuItems.forEach(i => {
+                if (i !== this) {
+                    i.classList.remove('active');
+                    i.querySelector('.dropdown-menu').classList.remove('show');
+                }
+            });
+
+            this.classList.toggle('active');
+            dropdownMenu.classList.toggle('show');
+
+            e.stopPropagation();
+        });
     });
 
-    // Dropdown menüsüne fareyle gelindiğinde
-    $('.dropdown-menu').hover(function() {
-        clearTimeout(hoverTimeout); // Timeout'u temizle, menü gösterilmeye devam etsin
-    }, function() {
-        hoverTimeout = setTimeout(function() {
-            $(this).stop(true, true).slideUp(200); // Menü gizle
-        }, 500); // Gecikmeyi burada ayarlayın (300 ms)
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.menu-item')) {
+            menuItems.forEach(i => {
+                i.classList.remove('active');
+                i.querySelector('.dropdown-menu').classList.remove('show');
+            });
+        }
     });
 });
-

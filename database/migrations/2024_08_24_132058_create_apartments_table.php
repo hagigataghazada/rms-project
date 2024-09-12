@@ -11,7 +11,7 @@ class CreateApartmentsTable extends Migration
         Schema::create('apartments', function (Blueprint $table) {
             $table->id();
             $table->integer('apartment_number')->unique();
-            $table->integer('building_number'); // Binanın ID'si
+            $table->integer('building_number');
             $table->integer('floor_number');
             $table->integer('room_count');
             $table->enum('status', ['for sale', 'for rent', 'occupied', 'repair']);
@@ -19,7 +19,7 @@ class CreateApartmentsTable extends Migration
             $table->timestamps();
 
             // Foreign Key
-            $table->foreign('building_number')->references('building_number')->on('buildings')->onDelete('cascade');
+            $table->foreign('building_number')->references('building_number')->on('buildings')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

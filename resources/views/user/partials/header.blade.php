@@ -7,11 +7,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 @if(auth()->check())
-                    <!-- Kullanıcı oturum açtıysa, kullanıcı adı ve apartman numarası ile logout butonu gösterilir -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ auth()->user()->name }} <!-- Kullanıcı Adı -->
-                            @if(auth()->user()->apartment_number) <!-- Apartman Numarası -->
+                            {{ auth()->user()->name }}
+                            @if(auth()->user()->apartment_number)
                             (Apartment: {{ auth()->user()->apartment_number }})
                             @endif
                         </a>

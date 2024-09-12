@@ -14,9 +14,8 @@ class Apartment extends Model
         return $this->hasMany(User::class, 'apartment_number');
     }
 
-    // Apartment modelinde
     protected $table = 'apartments';
-    protected $fillable = ['apartment_number', 'room_count', 'floor_number', 'status', 'price', 'building_number'];
+    protected $fillable = ['apartment_number', 'room_count', 'floor_number', 'status', 'price', 'building_number', 'image_path'];
 
     public function building()
     {

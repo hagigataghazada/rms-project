@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Apartment;
 use App\Models\Building;
 use Illuminate\Http\Request;
 
@@ -38,7 +39,7 @@ class BuildingController extends Controller
             'apartment_count' => $request->input('apartment_count'),
         ]);
 
-        return redirect()->route('buildings.index')->with('success', 'Bina başarıyla oluşturuldu.');
+        return redirect()->route('buildings.index')->with('success', 'Building created successfully.');
     }
 
     public function edit($id)
@@ -52,13 +53,20 @@ class BuildingController extends Controller
         $request->validate([
             'name' => 'required',
             'apartment_count' => 'required|integer',
-            'building_number' => 'required|unique:buildings,building_number,'.$id,
+            'building_number' => 'required|unique:buildings,building_number,' . $id,
         ]);
 
         $building = Building::findOrFail($id);
+        $oldBuildingNumber = $building->building_number;
+        $newBuildingNumber = $request->building_number;
+
+        if ($oldBuildingNumber != $newBuildingNumber) {
+            Apartment::where('building_number', $oldBuildingNumber)->update(['building_number' => $newBuildingNumber]);
+        }
+
         $building->update($request->all());
 
-        return redirect()->route('buildings.index')->with('success', 'Bina başarıyla güncellendi.');
+        return redirect()->route('buildings.index')->with('success', 'Building updated successfully.');
     }
 
     public function destroy($id)
@@ -66,6 +74,6 @@ class BuildingController extends Controller
         $building = Building::findOrFail($id);
         $building->delete();
 
-        return redirect()->route('buildings.index')->with('success', 'Bina başarıyla silindi.');
+        return redirect()->route('buildings.index')->with('success', 'Building deleted successfully.');
     }
 }

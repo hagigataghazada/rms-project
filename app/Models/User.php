@@ -35,7 +35,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-    // Bildirimlerle ilişki
+
     public function notifications()
     {
         return $this->hasMany(Notification::class, 'user_id');
@@ -62,7 +62,7 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Building::class, 'building_number');
     }
-    // Kullanıcının rolünü kontrol etmek için yardımcı metodlar
+
     public function isAdmin()
     {
         return $this->role === 'admin';

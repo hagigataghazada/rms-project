@@ -11,20 +11,21 @@ class UserController extends Controller
 {
     public function profile()
     {
-        $user = auth()->user(); // Giriş yapmış kullanıcıyı getirir
-        return view('user.dashboard', compact('user')); // 'user.profile' Blade dosyasına yönlendirir
+        $user = auth()->user();
+        return view('user.dashboard', compact('user'));
     }
+
     public function payments()
     {
-        $user = Auth::user(); // Giriş yapmış kullanıcıyı alıyoruz
-        $apartmentNumber = $user->apartment_number; // Kullanıcının apartment_number'ını alıyoruz
+        $user = Auth::user();
+        $apartmentNumber = $user->apartment_number;
 
-        // apartment_number'a göre ödemeleri çekiyoruz
+
         $payments = Payment::where('apartment_number', $apartmentNumber)->get();
 
-        // payments Blade dosyasına gönderiyoruz
         return view('user.payments', compact('payments'));
     }
+
     public function dashboard()
     {
         $user = Auth::user();
@@ -56,12 +57,12 @@ class UserController extends Controller
         }
         $user->save();
 
-        return redirect()->route('user.dashboard')->with('success', 'Account updated successfully.');
+        return redirect()->route('user.dashboard')->with('success', 'Account information successfully updated.');
     }
+
     public function services()
     {
-        // Gerekli servis bilgilerini alıp, view'a gönderin.
-        $services = Service::all(); // Örneğin, tüm servisleri çekiyoruz.
+        $services = Service::all();
 
         return view('user.services', compact('services'));
     }

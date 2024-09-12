@@ -11,51 +11,48 @@ class PaymentController extends Controller
 {
     public function create()
     {
-        $apartments = Apartment::all(); // Apartmanları çekiyoruz
+        $apartments = Apartment::all();
         return view('payments.create', compact('apartments'));
     }
 
     public function store(Request $request)
     {
-        // Verilerin doğrulanması
         $request->validate([
             'apartment_number' => 'required|exists:apartments,apartment_number',
             'type' => 'required|in:water,gas,electricity,elevator',
             'amount' => 'required|numeric',
             'status' => 'required|in:pending,paid',
-            'invoice_image' => 'nullable|image|max:2048',
+            'invoice_image' => 'nullable|image',
         ]);
 
-        // Resim yükleme işlemi (varsa)
         if ($request->hasFile('invoice_image')) {
-            // Dosyayı images/invoices dizinine taşı
-            $filePath = $request->file('invoice_image')->store('images/invoices', 'public');
+            $filename = time() . '_' . $request->file('invoice_image')->getClientOriginalName();
+            $request->file('invoice_image')->storeAs('public/images/invoices', $filename);
         } else {
-            $filePath = null;
+            $filename = null;
         }
 
-        // Verilerin kaydedilmesi
         Payment::create([
             'apartment_number' => $request->input('apartment_number'),
             'type' => $request->input('type'),
             'amount' => $request->input('amount'),
             'status' => $request->input('status'),
-            'invoice_image' => $filePath,
+            'invoice_image' => $filename,
         ]);
 
-        return redirect()->route('payments.list')->with('success', 'Fatura başarıyla oluşturuldu.');
+        return redirect()->route('payments.list')->with('success', 'Payment created successfully');
     }
 
     public function index()
     {
-        $payments = Payment::all(); // Tüm faturaları listeliyoruz
+        $payments = Payment::all();
         return view('payments.list', compact('payments'));
     }
 
     public function edit($id)
     {
         $payment = Payment::findOrFail($id);
-        $apartments = Apartment::all(); // Apartmanları listeliyoruz
+        $apartments = Apartment::all();
         return view('payments.edit', compact('payment', 'apartments'));
     }
 
@@ -63,37 +60,45 @@ class PaymentController extends Controller
     {
         $payment = Payment::findOrFail($id);
 
-        // Verilerin doğrulanması
         $request->validate([
             'apartment_number' => 'required|exists:apartments,apartment_number',
             'type' => 'required|in:water,gas,electricity,elevator',
             'amount' => 'nullable|numeric',
             'status' => 'required|in:pending,paid',
-            'invoice_image' => 'nullable|image',
+            'invoice_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        // Resim yükleme işlemi (varsa)
         if ($request->hasFile('invoice_image')) {
-            $filePath = $request->file('invoice_image')->store('invoices', 'public');
-            $payment->invoice_image = $filePath;
+            if ($payment->invoice_image && Storage::exists('public/images/invoices/' . $payment->invoice_image)) {
+                Storage::delete('public/images/invoices/' . $payment->invoice_image);
+            }
+
+            $filename = time() . '_' . $request->file('invoice_image')->getClientOriginalName();
+            $request->file('invoice_image')->storeAs('public/images/invoices', $filename);
+            $payment->invoice_image = $filename;
         }
 
-        // Verilerin güncellenmesi
-        $payment->update($request->except('invoice_image'));
+        $payment->update([
+            'apartment_number' => $request->input('apartment_number'),
+            'type' => $request->input('type'),
+            'amount' => $request->input('amount'),
+            'status' => $request->input('status'),
+            'invoice_image' => $payment->invoice_image,
+        ]);
 
-        return redirect()->route('payments.list')->with('success', 'Fatura başarıyla güncellendi.');
+        return redirect()->route('payments.list')->with('success', 'Payment updated successfully.');
     }
 
     public function destroy($id)
     {
         $payment = Payment::findOrFail($id);
 
-        // Resmi de sil
         if ($payment->invoice_image) {
             Storage::delete('public/' . $payment->invoice_image);
         }
 
         $payment->delete();
-        return redirect()->route('payments.list')->with('success', 'Fatura başarıyla silindi.');
+
+        return redirect()->route('payments.list')->with('success', 'Payment successfully deleted.');
     }
 }

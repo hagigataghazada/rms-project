@@ -9,16 +9,16 @@ use Symfony\Component\HttpFoundation\Response;
 class AuthAdmin
 {
     /**
-     * Handle an incoming request.
+     * Gələn sorğunu idarə etmək.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next)
     {
         if(!Auth::check() || Auth::user()->role !== 'admin') {
-            // Eğer kullanıcı admin değilse home sayfasına yönlendir
             return redirect()->route('home');
         }
+
         return $next($request);
     }
 }

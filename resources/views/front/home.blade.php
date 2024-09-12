@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
-    <link rel="stylesheet" href="{{ asset('home/home.css') }}"> <!-- CSS yolu güncellendi -->
+    <link rel="stylesheet" href="{{ asset('home/home.css') }}">
 </head>
 <body>
 <!-- Navbar -->
@@ -20,7 +20,7 @@
             </div>
         </li>
         <li><a href="{{ route('announcements.index') }}">Announcements</a></li>
-        <li><a href="#login-section">Login</a></li> <!-- Login butonu eklendi -->
+        <li><a href="#login-section">Login</a></li>
     </ul>
 </nav>
 
@@ -89,6 +89,6 @@
     </div>
 </footer>
 
-<script src="{{ asset('home/home.js') }}"></script> <!-- JS yolu güncellendi -->
+<script src="{{ asset('home/home.js') }}"></script>
 </body>
 </html>

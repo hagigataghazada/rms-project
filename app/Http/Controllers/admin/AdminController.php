@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Apartment;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Building;
 use App\Models\User;
@@ -12,9 +13,10 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $buildings = Building::all(); // Tüm binaları alıyoruz
+        $buildings = Building::all();
         return view('admin.index', compact('buildings'));
     }
+
     public function loadSection($section)
     {
         switch ($section) {
@@ -28,13 +30,11 @@ class AdminController extends Controller
             case 'apartmentsList':
                 $apartments = Apartment::all();
                 return view('admin.sections.apartments-list', compact('apartments'));
-            // Diğer case'ler aynı yapıda olacak
-            // ...
             default:
-                return 'Section bulunamadı';
+                return 'Section not found.';
         }
     }
-    // Admin kayıt formunu göster
+
     public function showRegisterForm()
     {
         return view('admin.register');
@@ -46,21 +46,21 @@ class AdminController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            // apartment_id validation gerekmiyor çünkü default vereceğiz
         ]);
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'apartment_number' => 0, // Burada varsayılan bir apartment_id değeri veriyoruz.
+            'apartment_number' => 0,
         ]);
 
-        return redirect()->route('admin.panel')->with('success', 'Admin başarıyla kayıt edildi');
+        return redirect()->route('admin.panel')->with('success', 'Admin successfully registered.');
     }
+
     public function editProfile()
     {
-        $admin = auth()->user(); // Giriş yapmış admini getir
+        $admin = auth()->user();
         return view('admin.edit', compact('admin'));
     }
 
@@ -68,14 +68,12 @@ class AdminController extends Controller
     {
         $admin = auth()->user();
 
-        // Validation
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $admin->id,
             'password' => 'nullable|string|min:8|confirmed',
         ]);
 
-        // Update admin
         $admin->name = $request->input('name');
         $admin->email = $request->input('email');
 
@@ -85,6 +83,6 @@ class AdminController extends Controller
 
         $admin->save();
 
-        return redirect()->route('admin.edit')->with('success', 'Profil başarıyla güncellendi.');
+        return redirect()->route('admin.edit')->with('success', 'Profile updated successfully.');
     }
 }
